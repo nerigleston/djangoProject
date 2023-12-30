@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'meu_app/css/style.css' %}">
+    <title>Manipular Dados</title>
+</head>
+<body>
+    <div class="container">
+        <h2>Adicionar Dados</h2>
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Adicionar</button>
+        </form>
+
+        <h2>Dados</h2>
+        <ul class="dados-list">
+                <li>
+                    <span class="dados-name">Nome</span>
+                    <span class="dados-idade">Idade</span>
+                    <span class="dados-acao">Ação</span>
+                </li>
+            {% for dado in dados %}
+                <li>
+                    <span class="dados-name">{{ dado.nome }}</span>
+                    <span class="dados-idade">{{ dado.idade }}</span>
+                    <span class="dados-acao"><a href="{% url 'remover_dado' dado.id %}">Remover</a></span>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <a href="{% url 'export_csv' %}" class="export-link">Exportar para CSV</a>
+    </div>
+</body>
+</html>
