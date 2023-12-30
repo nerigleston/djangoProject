@@ -1,4 +1,3 @@
-# meu_app/views.py
 from django.shortcuts import render, redirect
 from .models import Dado
 from .forms import DadoForm
