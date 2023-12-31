@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'meu_app/css/style.css' %}">
+    <title>Recuperar Dados do Elasticsearch</title>
+</head>
+<body>
+    <div class="container">
+        <a href="{% url 'manipular_dados' %}" class="retrieve-link">Voltar para Home</a>
+        <h2>Dados do Elasticsearch</h2>
+        <ul class="dados-list">
+            <li>
+                <span class="dados-name">Nome</span>
+                <span class="dados-idade">Idade</span>
+                <span class="dados-acao">Ação</span>
+            </li>
+            {% for entry in data_from_elasticsearch %}
+                <li>
+                    <span class="dados-name">{{ entry.nome }}</span>
+                    <span class="dados-idade">{{ entry.idade }}</span>
+                    {% if entry.id %}
+                        <span class="dados-acao">
+                            <a href="{% url 'remover_dado_elastic' entry.id %}" class="remove-link">Remover </br> Elasticsearch</a>
+                        </span>
+                    {% else %}
+                        <span>ID Inválido</span>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <script src="{% static 'meu_app/js/removeElastic.js' %}"></script>
+</body>
+</html>

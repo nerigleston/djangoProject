@@ -9,6 +9,7 @@
 </head>
 <body>
     <div class="container">
+        <a href="{% url 'retrieve_data_from_elasticsearch' %}" class="retrieve-link">Recuperar dados do Elasticsearch</a>
         <h2>Adicionar Dados</h2>
         <form method="post" action="">
             {% csrf_token %}
@@ -18,11 +19,11 @@
 
         <h2>Dados</h2>
         <ul class="dados-list">
-                <li>
-                    <span class="dados-name">Nome</span>
-                    <span class="dados-idade">Idade</span>
-                    <span class="dados-acao">Ação</span>
-                </li>
+            <li>
+                <span class="dados-name">Nome</span>
+                <span class="dados-idade">Idade</span>
+                <span class="dados-acao">Ação</span>
+            </li>
             {% for dado in dados %}
                 <li>
                     <span class="dados-name">{{ dado.nome }}</span>
@@ -32,7 +33,9 @@
             {% endfor %}
         </ul>
 
-        <a href="{% url 'export_csv' %}" class="export-link">Exportar para CSV</a>
+        <a href="{% url 'export_to_elasticsearch' %}" class="export-link" id="export-link">Exportar para Elasticsearch</a>
     </div>
+
+    <script src="{% static 'meu_app/js/exportElastic.js' %}"></script>
 </body>
 </html>

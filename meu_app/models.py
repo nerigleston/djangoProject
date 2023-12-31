@@ -2,6 +2,7 @@ from django.db import models
 
 
 class Dado(models.Model):
+    id = models.AutoField(primary_key=True)
     nome = models.CharField(max_length=100)
     idade = models.IntegerField()
 
@@ -11,6 +12,5 @@ class Dado(models.Model):
     def get_display_text(self):
         return f"{self.nome} - {self.idade}"
 
-
-class Meta:
-    app_label = 'meu_app'
+    class Meta:
+        app_label = 'meu_app'
