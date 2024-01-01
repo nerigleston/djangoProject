@@ -5,7 +5,7 @@ from .forms import DadoForm
 from django.http import HttpResponse
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
-from django.http import HttpResponseBadRequest
+from elasticsearch.exceptions import NotFoundError
 
 es = Elasticsearch(['http://localhost:9200'])
 
@@ -52,7 +52,10 @@ def retrieve_data_from_elasticsearch(request):
         }
     }
 
-    results = es.search(index='meu_app_index', body=search_query)
+    try:
+        results = es.search(index='meu_app_index', body=search_query)
+    except NotFoundError:
+        results = {'hits': {'hits': []}}
 
     hits = results.get('hits', {}).get('hits', [])
 
